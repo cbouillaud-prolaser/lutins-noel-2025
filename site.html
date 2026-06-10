@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Joyeux Anniversaire Jérémy - 34 ans</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Arial', sans-serif;
+            overflow: hidden;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.3));
+        }
+
+        /* BALLONS */
+        .balloon {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.9;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            animation: float-up 8s ease-in forwards;
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            width: 2px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.1);
+            transform: translateX(-50%);
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-150vh) translateX(100px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* CONFETTI */
+        .confetti-piece {
+            position: fixed;
+            pointer-events: none;
+            animation: confetti-spin 3s linear forwards;
+        }
+
+        @keyframes confetti-spin {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), 100vh) rotate(720deg) scale(0);
+            }
+        }
+
+        /* TITRE PRINCIPAL */
+        h1 {
+            font-size: clamp(2rem, 8vw, 5rem);
+            color: #ffffff;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4),
+                         0 0 30px rgba(255, 215, 0, 0.5);
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            animation: slideInDown 1s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* NOM */
+        .name {
+            font-size: clamp(2.5rem, 12vw, 7rem);
+            background: linear-gradient(135deg, #ffd700, #ffed4e, #ffa500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            margin: 20px 0;
+            animation: scaleIn 0.8s ease-out;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotateX(90deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateX(0deg);
+            }
+        }
+
+        /* AGE */
+        .age {
+            font-size: clamp(3rem, 15vw, 9rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b9d, #ff1493, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(255, 105, 180, 0.4);
+            margin: 30px 0;
+            animation: pulse-big 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.5));
+        }
+
+        @keyframes pulse-big {
+            0%, 100% {
+                transform: scale(1) rotateZ(0deg);
+            }
+            50% {
+                transform: scale(1.2) rotateZ(3deg);
+            }
+        }
+
+        /* MESSAGE */
+        .message {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            margin: 30px 0;
+            font-style: italic;
+            font-weight: 600;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* EMOJIS ANIMÉS */
+        .emoji-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .emoji {
+            font-size: clamp(2rem, 6vw, 4rem);
+            display: inline-block;
+            animation: bounce-emoji 1s ease-in-out infinite;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .emoji:nth-child(1) { animation-delay: 0s; }
+        .emoji:nth-child(2) { animation-delay: 0.2s; }
+        .emoji:nth-child(3) { animation-delay: 0.4s; }
+        .emoji:nth-child(4) { animation-delay: 0.6s; }
+        .emoji:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes bounce-emoji {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-40px) scale(1.2);
+            }
+        }
+
+        /* ÉTOILES SCINTILLANTES */
+        .stars-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            color: #ffff00;
+            font-size: 2rem;
+            animation: twinkle 3s infinite;
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* LUMIÈRE PULSANTE */
+        .glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
+            animation: glow-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.4;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars-background" id="stars"></div>
+    <div class="glow" style="top: 10%; left: 10%; width: 300px; height: 300px; background: #ffd700;"></div>
+    <div class="glow" style="top: 60%; right: 10%; width: 400px; height: 400px; background: #ff69b4;"></div>
+    
+    <div class="container">
+        <div class="emoji-group">
+            <span class="emoji">🎉</span>
+            <span class="emoji">🎂</span>
+            <span class="emoji">🎁</span>
+            <span class="emoji">🥳</span>
+            <span class="emoji">🌟</span>
+        </div>
+        
+        <h1>🎊 JOYEUX ANNIVERSAIRE 🎊</h1>
+        <div class="name">Jérémy</div>
+        <div class="age">34</div>
+        
+        <p class="message">✨ Que cette année soit SPECTACULAIRE ! ✨</p>
+        
+        <div class="emoji-group">
+            <span class="emoji">🎈</span>
+            <span class="emoji">🍾</span>
+            <span class="emoji">🎯</span>
+            <span class="emoji">💫</span>
+            <span class="emoji">🚀</span>
+        </div>
+    </div>
+
+    <script>
+        // Synthétiser la musique "Joyeux Anniversaire"
+        function playBirthdayMusic() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            const notes = [
+                { freq: 262, time: 0.5 },    // Do
+                { freq: 262, time: 0.5 },    // Do
+                { freq: 294, time: 1 },      // Ré
+                { freq: 262, time: 1 },      // Do
+                { freq: 349, time: 1 },      // Mi
+                { freq: 330, time: 2 },      // Ré#
+                { freq: 262, time: 0.5 },    // Do
+                { freq: 262, time: 0.5 },    // Do
+                { freq: 294, time: 1 },      // Ré
+                { freq: 262, time: 1 },      // Do
+                { freq: 392, time: 1 },      // Sol
+                { freq: 349, time: 2 },      // Mi
+                { freq: 262, time: 0.5 },    // Do
+                { freq: 262, time: 0.5 },    // Do
+                { freq: 523, time: 1 },      // Do aigu
+                { freq: 440, time: 1 },      // La
+                { freq: 349, time: 1 },      // Mi
+                { freq: 330, time: 1 },      // Ré#
+                { freq: 294, time: 2 },      // Ré
+            ];
+
+            let currentTime = audioContext.currentTime;
+
+            notes.forEach((note) => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                oscillator.frequency.value = note.freq;
+                oscillator.type = 'sine';
+
+                gainNode.gain.setValueAtTime(0.3, currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, currentTime + note.time);
+
+                oscillator.start(currentTime);
+                oscillator.stop(currentTime + note.time);
+
+                currentTime += note.time;
+            });
+        }
+
+        // Créer les étoiles
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 40; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.textContent = '⭐';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.fontSize = Math.random() * 30 + 15 + 'px';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Créer les ballons continuellement
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd', '#00d2d3', '#ff9ff3', '#ff69b4', '#ffd700'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            const size = Math.random() * 40 + 30;
+            balloon.style.width = size + 'px';
+            balloon.style.height = size + 'px';
+            balloon.style.background = color;
+            balloon.style.left = Math.random() * 100 + '%';
+            balloon.style.bottom = '-100px';
+            balloon.style.animationDelay = Math.random() * 2 + 's';
+            balloon.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            
+            document.body.appendChild(balloon);
+            
+            setTimeout(() => balloon.remove(), 15000);
+        }
+
+        // Créer le confetti
+        function createConfetti() {
+            const confettiCount = 80;
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                
+                const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd', '#ffd700', '#ff69b4', '#00d2d3'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                const size = Math.random() * 12 + 4;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+                confetti.style.background = color;
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
+                
+                const txOffset = (Math.random() - 0.5) * 300;
+                confetti.style.setProperty('--tx', txOffset + 'px');
+                
+                confetti.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+                confetti.style.animationDelay = Math.random() * 0.3 + 's';
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // Initialisation
+        document.addEventListener('click', playBirthdayMusic);
+        document.addEventListener('touchstart', playBirthdayMusic);
+        
+        createStars();
+        setInterval(createBalloon, 400);
+
+        // Créer du confetti au chargement
+        setTimeout(() => {
+            createConfetti();
+            playBirthdayMusic();
+        }, 500);
+
+        // Créer du confetti régulièrement
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                createConfetti();
+            }
+        }, 5000);
+
+        // Animation à la souris
+        document.addEventListener('mousemove', (e) => {
+            const glows = document.querySelectorAll('.glow');
+            glows.forEach((glow, index) => {
+                if (index === 0) {
+                    glow.style.left = e.clientX + 'px';
+                    glow.style.top = e.clientY + 'px';
+                }
+            });
+        });
+
+        // Rejouer la musique tous les 10 secondes
+        setInterval(() => {
+            playBirthdayMusic();
+        }, 10000);
+    </script>
+</body>
+</html>
