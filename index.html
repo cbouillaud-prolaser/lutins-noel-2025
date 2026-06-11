@@ -14,13 +14,14 @@
         body {
             font-family: 'Poppins', 'Arial', sans-serif;
             overflow: hidden;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         @keyframes gradient {
@@ -33,26 +34,26 @@
             text-align: center;
             z-index: 10;
             position: relative;
-            filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.3));
+            max-width: 90vw;
         }
 
-        /* BALLONS */
+        /* BALLONS COLORÉS */
         .balloon {
             position: fixed;
             border-radius: 50%;
-            opacity: 0.9;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-            animation: float-up 8s ease-in forwards;
+            opacity: 0.85;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+            animation: float-up 10s ease-in forwards;
         }
 
-        .balloon::after {
+        .balloon::before {
             content: '';
             position: absolute;
-            bottom: -60px;
+            bottom: -80px;
             left: 50%;
             width: 2px;
-            height: 60px;
-            background: rgba(0, 0, 0, 0.1);
+            height: 80px;
+            background: rgba(0, 0, 0, 0.15);
             transform: translateX(-50%);
         }
 
@@ -62,7 +63,7 @@
                 opacity: 0.9;
             }
             100% {
-                transform: translateY(-150vh) translateX(100px) scale(0.8);
+                transform: translateY(-120vh) translateX(80px) scale(0.7);
                 opacity: 0;
             }
         }
@@ -71,33 +72,52 @@
         .confetti-piece {
             position: fixed;
             pointer-events: none;
-            animation: confetti-spin 3s linear forwards;
+            animation: confetti-fall 3.5s ease-in forwards;
         }
 
-        @keyframes confetti-spin {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) rotate(0deg) scale(1);
-            }
-            100% {
+        @keyframes confetti-fall {
+            to {
                 opacity: 0;
-                transform: translate(var(--tx), 100vh) rotate(720deg) scale(0);
+                transform: translate(var(--tx), 100vh) rotateZ(var(--rotation)) scale(0);
             }
         }
 
-        /* TITRE PRINCIPAL */
-        h1 {
-            font-size: clamp(2rem, 8vw, 5rem);
-            color: #ffffff;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4),
-                         0 0 30px rgba(255, 215, 0, 0.5);
-            margin-bottom: 15px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            animation: slideInDown 1s ease-out;
+        /* CONTENEUR PRINCIPAL */
+        .main-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
-        @keyframes slideInDown {
+        /* EMOJIS DÉCORATION TOP */
+        .emoji-header {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            animation: bounce-in 0.8s ease-out;
+        }
+
+        .emoji-item {
+            animation: bounce-emoji 1s ease-in-out infinite;
+        }
+
+        .emoji-item:nth-child(1) { animation-delay: 0s; }
+        .emoji-item:nth-child(2) { animation-delay: 0.15s; }
+        .emoji-item:nth-child(3) { animation-delay: 0.3s; }
+        .emoji-item:nth-child(4) { animation-delay: 0.45s; }
+        .emoji-item:nth-child(5) { animation-delay: 0.6s; }
+
+        @keyframes bounce-emoji {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-25px) scale(1.1); }
+        }
+
+        @keyframes bounce-in {
             from {
                 opacity: 0;
                 transform: translateY(-50px);
@@ -108,106 +128,110 @@
             }
         }
 
-        /* NOM */
-        .name {
-            font-size: clamp(2.5rem, 12vw, 7rem);
-            background: linear-gradient(135deg, #ffd700, #ffed4e, #ffa500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* TITRE */
+        h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: #ffffff;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+                         0 0 40px rgba(255, 215, 0, 0.4);
+            margin-bottom: 20px;
             font-weight: 900;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-            margin: 20px 0;
-            animation: scaleIn 0.8s ease-out;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
+            letter-spacing: 3px;
+            animation: slideInDown 0.8s ease-out;
         }
 
-        @keyframes scaleIn {
+        @keyframes slideInDown {
             from {
                 opacity: 0;
-                transform: scale(0.5) rotateX(90deg);
+                transform: translateY(-40px) rotateX(45deg);
             }
             to {
                 opacity: 1;
-                transform: scale(1) rotateX(0deg);
+                transform: translateY(0) rotateX(0deg);
             }
         }
 
-        /* AGE */
-        .age {
-            font-size: clamp(3rem, 15vw, 9rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, #ff6b9d, #ff1493, #ff69b4);
+        /* NOM */
+        .name {
+            font-size: clamp(3rem, 14vw, 6rem);
+            background: linear-gradient(135deg, #ffd700, #ffed4e, #ff6b9d, #ff1493);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 40px rgba(255, 105, 180, 0.4);
-            margin: 30px 0;
-            animation: pulse-big 2s ease-in-out infinite;
-            filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.5));
-        }
-
-        @keyframes pulse-big {
-            0%, 100% {
-                transform: scale(1) rotateZ(0deg);
-            }
-            50% {
-                transform: scale(1.2) rotateZ(3deg);
-            }
-        }
-
-        /* MESSAGE */
-        .message {
-            font-size: clamp(1.2rem, 4vw, 2rem);
-            color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-            margin: 30px 0;
-            font-style: italic;
-            font-weight: 600;
-            animation: slideInUp 1s ease-out 0.3s both;
+            font-weight: 900;
+            margin: 25px 0;
+            animation: slideInUp 0.8s ease-out 0.1s both, gradient-shift 4s ease infinite 0.8s;
+            filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.4));
         }
 
         @keyframes slideInUp {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(40px) scale(0.8);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
-        /* EMOJIS ANIMÉS */
-        .emoji-group {
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* AGE */
+        .age {
+            font-size: clamp(4rem, 18vw, 7rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b9d, #ff1493, #ff69b4, #ff00ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 50px rgba(255, 105, 180, 0.3);
+            margin: 20px 0 40px 0;
+            animation: slideInUp 0.8s ease-out 0.2s both, pulse-scale 2.5s ease-in-out 1s infinite;
+            filter: drop-shadow(0 0 25px rgba(255, 105, 180, 0.5));
+        }
+
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* MESSAGE */
+        .message {
+            font-size: clamp(1.3rem, 3.5vw, 2rem);
+            color: #ffffff;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            margin: 30px 0;
+            font-weight: 700;
+            font-style: italic;
+            animation: slideInUp 0.8s ease-out 0.3s both;
+            letter-spacing: 1px;
+        }
+
+        /* EMOJIS DÉCORATION BAS */
+        .emoji-footer {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin: 40px 0;
+            margin-top: 40px;
+            font-size: clamp(2rem, 6vw, 4rem);
             flex-wrap: wrap;
         }
 
-        .emoji {
-            font-size: clamp(2rem, 6vw, 4rem);
-            display: inline-block;
+        .emoji-footer .emoji-item {
             animation: bounce-emoji 1s ease-in-out infinite;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
 
-        .emoji:nth-child(1) { animation-delay: 0s; }
-        .emoji:nth-child(2) { animation-delay: 0.2s; }
-        .emoji:nth-child(3) { animation-delay: 0.4s; }
-        .emoji:nth-child(4) { animation-delay: 0.6s; }
-        .emoji:nth-child(5) { animation-delay: 0.8s; }
-
-        @keyframes bounce-emoji {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(-40px) scale(1.2);
-            }
-        }
+        .emoji-footer .emoji-item:nth-child(1) { animation-delay: 0.1s; }
+        .emoji-footer .emoji-item:nth-child(2) { animation-delay: 0.25s; }
+        .emoji-footer .emoji-item:nth-child(3) { animation-delay: 0.4s; }
+        .emoji-footer .emoji-item:nth-child(4) { animation-delay: 0.55s; }
 
         /* ÉTOILES SCINTILLANTES */
         .stars-background {
@@ -217,20 +241,20 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 1;
         }
 
         .star {
             position: absolute;
-            color: #ffff00;
-            font-size: 2rem;
-            animation: twinkle 3s infinite;
-            text-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+            font-size: 1.5rem;
+            animation: twinkle 3s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(255, 255, 0, 0.9);
         }
 
         @keyframes twinkle {
             0%, 100% {
                 opacity: 0.2;
-                transform: scale(0.8);
+                transform: scale(0.7);
             }
             50% {
                 opacity: 1;
@@ -238,14 +262,15 @@
             }
         }
 
-        /* LUMIÈRE PULSANTE */
+        /* LUMIÈRE D'AMBIANCE */
         .glow {
             position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
+            filter: blur(100px);
+            opacity: 0.25;
             pointer-events: none;
             animation: glow-pulse 4s ease-in-out infinite;
+            z-index: 0;
         }
 
         @keyframes glow-pulse {
@@ -254,101 +279,111 @@
                 opacity: 0.2;
             }
             50% {
-                transform: scale(1.5);
-                opacity: 0.4;
+                transform: scale(1.3);
+                opacity: 0.35;
             }
         }
     </style>
 </head>
 <body>
     <div class="stars-background" id="stars"></div>
-    <div class="glow" style="top: 10%; left: 10%; width: 300px; height: 300px; background: #ffd700;"></div>
-    <div class="glow" style="top: 60%; right: 10%; width: 400px; height: 400px; background: #ff69b4;"></div>
+    <div class="glow" style="top: 5%; left: 5%; width: 400px; height: 400px; background: #ffd700;"></div>
+    <div class="glow" style="top: 50%; right: 5%; width: 500px; height: 500px; background: #ff69b4;"></div>
+    <div class="glow" style="bottom: 5%; left: 50%; width: 450px; height: 450px; background: #667eea; transform: translateX(-50%);"></div>
     
     <div class="container">
-        <div class="emoji-group">
-            <span class="emoji">🎉</span>
-            <span class="emoji">🎂</span>
-            <span class="emoji">🎁</span>
-            <span class="emoji">🥳</span>
-            <span class="emoji">🌟</span>
-        </div>
-        
-        <h1>🎊 JOYEUX ANNIVERSAIRE 🎊</h1>
-        <div class="name">Jérémy</div>
-        <div class="age">34</div>
-        
-        <p class="message">✨ Que cette année soit SPECTACULAIRE ! ✨</p>
-        
-        <div class="emoji-group">
-            <span class="emoji">🎈</span>
-            <span class="emoji">🍾</span>
-            <span class="emoji">🎯</span>
-            <span class="emoji">💫</span>
-            <span class="emoji">🚀</span>
+        <div class="main-content">
+            <div class="emoji-header">
+                <span class="emoji-item">🎉</span>
+                <span class="emoji-item">🎂</span>
+                <span class="emoji-item">🎁</span>
+                <span class="emoji-item">🥳</span>
+                <span class="emoji-item">🌟</span>
+            </div>
+            
+            <h1>JOYEUX ANNIVERSAIRE</h1>
+            
+            <div class="name">Jérémy</div>
+            
+            <div class="age">34</div>
+            
+            <p class="message">Que cette année soit INCROYABLE ! 🚀</p>
+            
+            <div class="emoji-footer">
+                <span class="emoji-item">🎈</span>
+                <span class="emoji-item">🍾</span>
+                <span class="emoji-item">⭐</span>
+                <span class="emoji-item">🎊</span>
+            </div>
         </div>
     </div>
 
     <script>
-        // Synthétiser la musique "Joyeux Anniversaire"
+        // Générer une meilleure musique d'anniversaire avec plus de notes
         function playBirthdayMusic() {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            
-            const notes = [
-                { freq: 262, time: 0.5 },    // Do
-                { freq: 262, time: 0.5 },    // Do
-                { freq: 294, time: 1 },      // Ré
-                { freq: 262, time: 1 },      // Do
-                { freq: 349, time: 1 },      // Mi
-                { freq: 330, time: 2 },      // Ré#
-                { freq: 262, time: 0.5 },    // Do
-                { freq: 262, time: 0.5 },    // Do
-                { freq: 294, time: 1 },      // Ré
-                { freq: 262, time: 1 },      // Do
-                { freq: 392, time: 1 },      // Sol
-                { freq: 349, time: 2 },      // Mi
-                { freq: 262, time: 0.5 },    // Do
-                { freq: 262, time: 0.5 },    // Do
-                { freq: 523, time: 1 },      // Do aigu
-                { freq: 440, time: 1 },      // La
-                { freq: 349, time: 1 },      // Mi
-                { freq: 330, time: 1 },      // Ré#
-                { freq: 294, time: 2 },      // Ré
-            ];
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Mélodie complète avec meilleure harmonie
+                const melody = [
+                    { freq: 262, duration: 0.35, volume: 0.3 },
+                    { freq: 262, duration: 0.35, volume: 0.3 },
+                    { freq: 294, duration: 0.7, volume: 0.3 },
+                    { freq: 262, duration: 0.7, volume: 0.3 },
+                    { freq: 349, duration: 0.7, volume: 0.3 },
+                    { freq: 330, duration: 1.4, volume: 0.3 },
+                    { freq: 262, duration: 0.35, volume: 0.3 },
+                    { freq: 262, duration: 0.35, volume: 0.3 },
+                    { freq: 294, duration: 0.7, volume: 0.3 },
+                    { freq: 262, duration: 0.7, volume: 0.3 },
+                    { freq: 392, duration: 0.7, volume: 0.3 },
+                    { freq: 349, duration: 1.4, volume: 0.3 },
+                    { freq: 262, duration: 0.35, volume: 0.3 },
+                    { freq: 262, duration: 0.35, volume: 0.3 },
+                    { freq: 523, duration: 0.7, volume: 0.25 },
+                    { freq: 440, duration: 0.7, volume: 0.25 },
+                    { freq: 349, duration: 0.7, volume: 0.25 },
+                    { freq: 330, duration: 0.7, volume: 0.25 },
+                    { freq: 294, duration: 1.4, volume: 0.3 },
+                ];
 
-            let currentTime = audioContext.currentTime;
+                let currentTime = audioContext.currentTime;
 
-            notes.forEach((note) => {
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
+                melody.forEach((note) => {
+                    // Note principale
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    
+                    osc.type = 'sine';
+                    osc.frequency.value = note.freq;
+                    
+                    gain.gain.setValueAtTime(note.volume, currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, currentTime + note.duration - 0.05);
+                    
+                    osc.start(currentTime);
+                    osc.stop(currentTime + note.duration);
 
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-
-                oscillator.frequency.value = note.freq;
-                oscillator.type = 'sine';
-
-                gainNode.gain.setValueAtTime(0.3, currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, currentTime + note.time);
-
-                oscillator.start(currentTime);
-                oscillator.stop(currentTime + note.time);
-
-                currentTime += note.time;
-            });
+                    currentTime += note.duration;
+                });
+            } catch (e) {
+                console.log('Audio context error');
+            }
         }
 
         // Créer les étoiles
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < 50; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
-                star.textContent = '⭐';
+                star.textContent = '✨';
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
                 star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.fontSize = Math.random() * 30 + 15 + 'px';
+                star.style.fontSize = Math.random() * 25 + 12 + 'px';
                 starsContainer.appendChild(star);
             }
         }
@@ -358,88 +393,78 @@
             const balloon = document.createElement('div');
             balloon.className = 'balloon';
             
-            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd', '#00d2d3', '#ff9ff3', '#ff69b4', '#ffd700'];
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd', '#00d2d3', '#ff9ff3', '#ff69b4', '#ffd700', '#ff007f'];
             const color = colors[Math.floor(Math.random() * colors.length)];
             
-            const size = Math.random() * 40 + 30;
+            const size = Math.random() * 50 + 40;
             balloon.style.width = size + 'px';
             balloon.style.height = size + 'px';
             balloon.style.background = color;
             balloon.style.left = Math.random() * 100 + '%';
-            balloon.style.bottom = '-100px';
+            balloon.style.bottom = '-150px';
             balloon.style.animationDelay = Math.random() * 2 + 's';
-            balloon.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            balloon.style.animationDuration = (Math.random() * 6 + 9) + 's';
             
             document.body.appendChild(balloon);
             
-            setTimeout(() => balloon.remove(), 15000);
+            setTimeout(() => balloon.remove(), 20000);
         }
 
         // Créer le confetti
-        function createConfetti() {
-            const confettiCount = 80;
-            for (let i = 0; i < confettiCount; i++) {
+        function createConfetti(count = 100) {
+            for (let i = 0; i < count; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti-piece';
                 
-                const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd', '#ffd700', '#ff69b4', '#00d2d3'];
+                const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f7b731', '#5f27cd', '#ffd700', '#ff69b4', '#00d2d3', '#ff007f', '#39ff14'];
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
-                const size = Math.random() * 12 + 4;
+                const size = Math.random() * 15 + 6;
                 confetti.style.width = size + 'px';
                 confetti.style.height = size + 'px';
                 confetti.style.background = color;
                 confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.top = '-10px';
+                confetti.style.top = '-20px';
                 confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
                 
-                const txOffset = (Math.random() - 0.5) * 300;
-                confetti.style.setProperty('--tx', txOffset + 'px');
+                const txOffset = (Math.random() - 0.5) * 400;
+                const rotation = Math.random() * 720;
                 
-                confetti.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
-                confetti.style.animationDelay = Math.random() * 0.3 + 's';
+                confetti.style.setProperty('--tx', txOffset + 'px');
+                confetti.style.setProperty('--rotation', rotation + 'deg');
+                
+                confetti.style.animationDuration = (Math.random() * 2.5 + 2.5) + 's';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
                 
                 document.body.appendChild(confetti);
                 
-                setTimeout(() => confetti.remove(), 5000);
+                setTimeout(() => confetti.remove(), 6000);
             }
         }
 
         // Initialisation
-        document.addEventListener('click', playBirthdayMusic);
-        document.addEventListener('touchstart', playBirthdayMusic);
-        
         createStars();
-        setInterval(createBalloon, 400);
+        setInterval(createBalloon, 500);
 
-        // Créer du confetti au chargement
+        // Créer du confetti et jouer la musique au chargement
         setTimeout(() => {
-            createConfetti();
+            createConfetti(120);
             playBirthdayMusic();
-        }, 500);
+        }, 800);
 
         // Créer du confetti régulièrement
+        let confettiCounter = 0;
         setInterval(() => {
-            if (Math.random() > 0.7) {
-                createConfetti();
+            confettiCounter++;
+            if (confettiCounter % 3 === 0) {
+                createConfetti(60);
             }
-        }, 5000);
+        }, 4000);
 
-        // Animation à la souris
-        document.addEventListener('mousemove', (e) => {
-            const glows = document.querySelectorAll('.glow');
-            glows.forEach((glow, index) => {
-                if (index === 0) {
-                    glow.style.left = e.clientX + 'px';
-                    glow.style.top = e.clientY + 'px';
-                }
-            });
-        });
-
-        // Rejouer la musique tous les 10 secondes
+        // Rejouer la musique tous les 18 secondes
         setInterval(() => {
             playBirthdayMusic();
-        }, 10000);
+        }, 18000);
     </script>
 </body>
 </html>
